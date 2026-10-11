@@ -18,9 +18,9 @@ import { api } from '../api/client';
 import { FoodListing, ImpactSummary } from '../types';
 import { UrgencyBadge } from '../components/ui/UrgencyBadge';
 import { useDemo } from '../context/DemoContext';
-import { RescueGridNetwork3D } from '../components/3d/RescueGridNetwork3D';
-import { AmbientHeroCanvas3D } from '../components/3d/AmbientHeroCanvas3D';
-import { EcoBadge3D } from '../components/3d/EcoBadge3D';
+import { FoodRescueFlow2D } from '../components/2d/FoodRescueFlow2D';
+import { AmbientHeroCanvas2D } from '../components/2d/AmbientHeroCanvas2D';
+import { EcoBadge2D } from '../components/2d/EcoBadge2D';
 import { LiveActivityBar } from '../components/layout/LiveActivityBar';
 
 export const LandingPage: React.FC = () => {
@@ -30,7 +30,7 @@ export const LandingPage: React.FC = () => {
   const [impact, setImpact] = useState<ImpactSummary | null>(null);
   const [urgentListings, setUrgentListings] = useState<FoodListing[]>([]);
   const [loading, setLoading] = useState(true);
-  const [heroViewMode, setHeroViewMode] = useState<'3d' | 'photo'>('3d');
+  const [heroViewMode, setHeroViewMode] = useState<'2d' | 'photo'>('2d');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,8 +56,8 @@ export const LandingPage: React.FC = () => {
     <div className="space-y-16 pb-20 overflow-hidden text-left">
       {/* HERO SECTION */}
       <section className="relative pt-6 sm:pt-12 lg:pt-16">
-        {/* 3D Ambient Background Canvas */}
-        <AmbientHeroCanvas3D />
+        {/* Ambient 2D Background Canvas */}
+        <AmbientHeroCanvas2D />
 
         {/* Ambient atmospheric lighting */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-gradient-to-tr from-[#DCE7D8]/50 dark:from-[#163D2B]/30 via-[#D9F36A]/20 dark:via-[#D9F36A]/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
@@ -137,20 +137,21 @@ export const LandingPage: React.FC = () => {
             </div>
 
             {/* Right Column: 3D Three.js Plate & Visual Box */}
-            <div className="lg:col-span-5 relative">
+            {/* Right Column: 2D Interactive Rescue Flow & Visual Box */}
+            <div className="lg:col-span-5 relative w-full">
               {/* Mode Toggle Pill */}
               <div className="flex items-center justify-center mb-3">
                 <div className="bg-white/90 dark:bg-[#12241B]/90 backdrop-blur-md p-1 rounded-2xl border border-[#DCE7D8] dark:border-[#1E3A2C] shadow-xs flex items-center gap-1">
                   <button
-                    onClick={() => setHeroViewMode('3d')}
+                    onClick={() => setHeroViewMode('2d')}
                     className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                      heroViewMode === '3d'
+                      heroViewMode === '2d'
                         ? 'bg-[#163D2B] dark:bg-[#D9F36A] text-white dark:text-[#10291F] shadow-xs'
                         : 'text-[#737C73] dark:text-[#96A89D] hover:text-[#163D2B] dark:hover:text-white'
                     }`}
                   >
-                    <Box className="w-3.5 h-3.5" />
-                    <span>3D Rescue Network</span>
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Visual Rescue Flow</span>
                   </button>
                   <button
                     onClick={() => setHeroViewMode('photo')}
@@ -167,13 +168,13 @@ export const LandingPage: React.FC = () => {
               </div>
 
               {/* Main Visual Box */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/80 dark:border-[#1E3A2C] aspect-4/5 w-full max-w-md mx-auto bg-gradient-to-b from-white/95 dark:from-[#12241B] via-[#F8F6EF]/90 dark:via-[#0F2218] to-[#DCE7D8]/50 dark:to-[#0B1A12]">
-                {heroViewMode === '3d' ? (
-                  <div className="w-full h-full relative flex items-center justify-center">
-                    <RescueGridNetwork3D />
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/80 dark:border-[#1E3A2C] w-full max-w-lg mx-auto bg-gradient-to-b from-white/95 dark:from-[#12241B] via-[#F8F6EF]/90 dark:via-[#0F2218] to-[#DCE7D8]/50 dark:to-[#0B1A12]">
+                {heroViewMode === '2d' ? (
+                  <div className="w-full relative flex items-center justify-center min-h-[480px]">
+                    <FoodRescueFlow2D />
                   </div>
                 ) : (
-                  <>
+                  <div className="aspect-4/5 w-full relative">
                     <img
                       src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=900&q=80"
                       alt="Fresh edible surplus meal ready for community rescue"
@@ -186,7 +187,7 @@ export const LandingPage: React.FC = () => {
                         Edible & Ready to Rescue
                       </span>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
 
@@ -326,9 +327,9 @@ export const LandingPage: React.FC = () => {
               </div>
             </div>
 
-            {/* 3D Eco Gem Badge in CTA */}
+            {/* 2D Eco Gem Badge in CTA */}
             <div className="md:col-span-4 flex items-center justify-center">
-              <EcoBadge3D />
+              <EcoBadge2D />
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@ import {
 import { api } from '../api/client';
 import { ImpactSummary, ImpactTimeseriesPoint, ImpactCategoryPoint } from '../types';
 import { useDemo } from '../context/DemoContext';
-import { RescueGlobe3D } from '../components/3d/RescueGlobe3D';
+import { RescueGlobe2D } from '../components/2d/RescueGlobe2D';
 
 const CATEGORY_COLORS = ['#163D2B', '#D9F36A', '#DCA647', '#2D6A4F', '#74C69D'];
 
@@ -110,13 +110,9 @@ export const ImpactPage: React.FC = () => {
             </div>
           </div>
 
-          {/* 3D Earth Orb Visual */}
+          {/* 2D Planetary Resource Flow Visual */}
           <div className="lg:col-span-5 h-64 sm:h-72 w-full relative flex items-center justify-center">
-            <RescueGlobe3D />
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/60 backdrop-blur-md text-white text-[10px] px-3 py-1 rounded-full pointer-events-none flex items-center gap-1.5 whitespace-nowrap border border-white/10">
-              <Sparkles className="w-3 h-3 text-[#D9F36A]" />
-              <span>Interactive 3D Eco Globe · Drag to rotate</span>
-            </div>
+            <RescueGlobe2D />
           </div>
         </div>
       </section>

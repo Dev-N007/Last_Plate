@@ -12,7 +12,7 @@ import {
   Layers,
   HeartHandshake
 } from 'lucide-react';
-import { RescueJourney3D } from '../components/3d/RescueJourney3D';
+import { RescueJourney2D } from '../components/2d/RescueJourney2D';
 
 export const HowItWorksPage: React.FC = () => {
   return (
@@ -37,8 +37,8 @@ export const HowItWorksPage: React.FC = () => {
           1. The Rescue Lifecycle
         </h2>
 
-        {/* 3D Interactive Pipeline Corridor */}
-        <RescueJourney3D className="mb-6 shadow-xl" />
+        {/* 2D Interactive Pipeline Corridor */}
+        <RescueJourney2D className="mb-6 shadow-xl" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-6 bg-white dark:bg-[#12241B] rounded-3xl border border-[#DCE7D8] dark:border-[#1E3A2C] space-y-3 shadow-xs">

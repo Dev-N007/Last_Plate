@@ -29,7 +29,7 @@ import {
 import { UrgencyBadge } from '../components/ui/UrgencyBadge';
 import { useDemo } from '../context/DemoContext';
 import { useAuth } from '../context/AuthContext';
-import { DispatchMatrix3D } from '../components/3d/DispatchMatrix3D';
+import { DispatchRadar2D } from '../components/2d/DispatchRadar2D';
 
 export const CoordinatorPage: React.FC = () => {
   const { refreshKey, triggerRefresh } = useDemo();
@@ -288,11 +288,12 @@ export const CoordinatorPage: React.FC = () => {
             </div>
           </div>
 
-          {/* 3D Neural Dispatch Matrix */}
-          <div className="lg:col-span-4 h-48 w-full relative flex items-center justify-center bg-black/25 rounded-2xl border border-white/10 overflow-hidden">
-            <DispatchMatrix3D />
-            <div className="absolute bottom-2 text-[9px] text-[#D9F36A] font-mono tracking-wider">
-              3D AI Dispatch Topology
+          {/* 2D Neural Dispatch Radar */}
+          <div className="lg:col-span-4 h-48 w-full relative flex items-center justify-center bg-black/35 rounded-2xl border border-white/10 overflow-hidden">
+            <DispatchRadar2D />
+            <div className="absolute bottom-2 text-[9px] text-[#D9F36A] font-mono tracking-wider flex items-center gap-1.5 bg-black/60 px-2 py-0.5 rounded-full border border-white/10">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D9F36A] animate-ping"></span>
+              <span>AWS Strands SDK v1.59.0 Dispatch Radar</span>
             </div>
           </div>
         </div>
@@ -391,7 +392,51 @@ export const CoordinatorPage: React.FC = () => {
           </h2>
         </div>
 
-        <div className="bg-white dark:bg-[#12241B] rounded-3xl border border-[#DCE7D8] dark:border-[#1E3A2C] overflow-hidden shadow-xs">
+        {/* Mobile Card View (screens < 640px) */}
+        <div className="block sm:hidden space-y-3">
+          {urgentListings.map((item) => (
+            <div
+              key={item.id}
+              className="bg-white dark:bg-[#12241B] rounded-2xl p-4 border border-[#DCE7D8] dark:border-[#1E3A2C] shadow-xs space-y-3"
+            >
+              <div className="flex items-center justify-between gap-2">
+                <UrgencyBadge
+                  urgency={item.urgency_level}
+                  minutesRemaining={item.minutes_remaining}
+                />
+                <span className="text-xs font-bold text-[#163D2B] dark:text-[#D9F36A] bg-[#DCE7D8]/60 dark:bg-[#1C3527] px-2 py-0.5 rounded">
+                  {item.available_portions} {item.quantity_unit}
+                </span>
+              </div>
+
+              <div>
+                <h3 className="font-editorial text-base font-bold text-[#163D2B] dark:text-[#E8F0EB]">
+                  {item.name}
+                </h3>
+                <p className="text-xs text-[#737C73] dark:text-[#96A89D] mt-0.5">
+                  {item.provider_name} · Closes at {new Date(item.pickup_deadline).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                </p>
+                {item.declared_allergens.length > 0 && (
+                  <p className="text-[11px] text-[#9E6E18] dark:text-[#DCA647] mt-1 font-medium">
+                    Allergens: {item.declared_allergens.join(', ')}
+                  </p>
+                )}
+              </div>
+
+              <div className="pt-2 border-t border-[#DCE7D8]/60 dark:border-[#1E3A2C] flex items-center justify-end">
+                <button
+                  onClick={() => runAiMatching(item.id)}
+                  className="px-3 py-1.5 rounded-xl bg-[#163D2B] dark:bg-[#D9F36A] text-white dark:text-[#10291F] text-xs font-bold hover:bg-[#10291F] dark:hover:bg-white transition-all cursor-pointer"
+                >
+                  Plan Match with AI
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Desktop / Tablet Table View (screens >= 640px) */}
+        <div className="hidden sm:block bg-white dark:bg-[#12241B] rounded-3xl border border-[#DCE7D8] dark:border-[#1E3A2C] overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead className="bg-[#F8F6EF] dark:bg-[#0E1F16] text-[#737C73] dark:text-[#96A89D] uppercase tracking-wider font-semibold border-b border-[#DCE7D8] dark:border-[#1E3A2C]">

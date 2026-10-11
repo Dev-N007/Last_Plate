@@ -25,19 +25,20 @@ export const LiveActivityBar: React.FC = () => {
   return (
     <div className="w-full bg-[#F8F6EF] dark:bg-[#0D1C14] border-y border-[#DCE7D8] dark:border-[#1E3A2C] py-2.5 px-4 transition-colors">
       <div className="max-w-7xl mx-auto flex items-center justify-between text-xs gap-3">
-        <div className="flex items-center gap-2.5 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 flex-1">
           <span className="flex h-2 w-2 relative shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#163D2B] dark:bg-[#D9F36A] opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-[#163D2B] dark:bg-[#D9F36A]"></span>
           </span>
-          <span className="font-bold text-[#163D2B] dark:text-[#D9F36A] uppercase tracking-wider text-[11px] shrink-0">
-            Live Network Pulse
+          <span className="font-bold text-[#163D2B] dark:text-[#D9F36A] uppercase tracking-wider text-[10px] sm:text-[11px] shrink-0">
+            <span className="hidden xs:inline">Live Network Pulse</span>
+            <span className="xs:hidden">Live Pulse</span>
           </span>
-          <span className="text-[#DCE7D8] dark:text-[#214232]">|</span>
-          <div className="flex items-center gap-1.5 truncate text-[#26332B] dark:text-[#D1E0D6]">
+          <span className="text-[#DCE7D8] dark:text-[#214232] shrink-0">|</span>
+          <div className="flex items-center gap-1.5 min-w-0 flex-1 text-[#26332B] dark:text-[#D1E0D6]">
             <Icon className="w-3.5 h-3.5 text-[#163D2B] dark:text-[#D9F36A] shrink-0" />
-            <span className="truncate font-medium">{current.text}</span>
-            <span className="text-[11px] text-[#737C73] dark:text-[#95A599] shrink-0">({current.time})</span>
+            <span className="truncate font-medium text-[11px] sm:text-xs">{current.text}</span>
+            <span className="text-[10px] sm:text-[11px] text-[#737C73] dark:text-[#95A599] shrink-0">({current.time})</span>
           </div>
         </div>
 
