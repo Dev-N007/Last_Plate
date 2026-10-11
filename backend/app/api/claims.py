@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.models import FoodListing, Claim, generate_uuid, utc_now
 from app.schemas.schemas import ClaimCreate, ClaimResponse
+from app.services.aws_ledger import aws_ledger
 
 router = APIRouter(prefix="", tags=["Claims"])
 
@@ -175,5 +176,19 @@ def confirm_pickup(claim_id: str, db: Session = Depends(get_db)):
 
     db.commit()
     db.refresh(claim)
+
+    # Record verified audit receipt via AWS Open Source SDK (boto3)
+    try:
+        aws_ledger.record_handover_receipt(
+            claim_id=claim.id,
+            listing_name=listing.name if listing else "Surplus Food",
+            provider_name=listing.provider_name if listing else "Provider",
+            recipient_name=claim.recipient_name,
+            portions=claim.portions_claimed,
+            co2_saved_kg=round(claim.portions_claimed * 0.45 * 2.5, 2),
+            reference_code=claim.claim_reference
+        )
+    except Exception as e:
+        pass
 
     return build_claim_response(claim, listing)
