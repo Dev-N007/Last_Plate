@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, .dark, .dark *));
+
+@layer base {
+  :root {
+    --forest-green: #163D2B;
+    --deep-green: #10291F;
+    --warm-ivory: #F8F6EF;
+    --card-white: #FFFFFF;
+    --citrus-accent: #D9F36A;
+    --muted-sage: #DCE7D8;
+    --body-text: #26332B;
+    --secondary-text: #737C73;
+    --warning-amber: #DCA647;
+    --error-red: #C64E42;
+
+    --font-serif: 'DM Serif Display', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .dark {
+    --warm-ivory: #09150F;
+    --card-white: #112219;
+    --muted-sage: #1C3527;
+    --body-text: #E8F0EB;
+    --secondary-text: #96A89D;
+    --deep-green: #060E0A;
+  }
+
+  body {
+    background-color: var(--warm-ivory);
+    color: var(--body-text);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  h1, h2, h3, .font-editorial {
+    font-family: var(--font-serif);
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--warm-ivory);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-sage);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--forest-green);
+}
+
+/* Glassmorphism surfaces */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(220, 231, 216, 0.6);
+}
+
+.dark .glass-panel {
+  background: rgba(17, 34, 25, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(28, 53, 39, 0.8);
+}
+
+.glass-panel-dark {
+  background: rgba(16, 41, 31, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(217, 243, 106, 0.2);
+}
+
+/* Pulse micro-animation */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Floating animation for hero food cards */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.8deg); }
+}
+
+.animate-float {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-slow 6s ease-in-out 1.5s infinite;
+}
