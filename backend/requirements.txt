@@ -1,0 +1,10 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pydantic>=2.10.0
+sqlalchemy>=2.0.36
+python-multipart>=0.0.18
+python-dotenv>=1.0.1
+requests>=2.32.3
+httpx>=0.28.0
+pytest>=8.3.0
+strands-agents>=0.1.0

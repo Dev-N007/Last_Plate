@@ -1,0 +1,59 @@
+# Environment & Secrets
+.env
+.env.*
+*.env
+!.env.example
+!frontend/.env.example
+!backend/.env.example
+
+# Databases
+*.db
+*.sqlite
+*.sqlite3
+backend/*.db
+lastplate.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv/
+venv/
+ENV/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node / Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm/
+
+# Media & Temporary Artifacts
+.tempmediaStorage/
+*.mp4
+*.webm
+*.webp
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDE & OS
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db
+desktop.ini
